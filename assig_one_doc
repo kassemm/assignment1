@@ -1,0 +1,103 @@
+Name: Moustafa Kassem
+
+
+Question 2:
+–----------
+
+Parallel version one ParallelThread
+Threads 1       0m11.541s
+		2       0m7.411s
+		4       0m6.756s
+		8       0m6.302s
+		16      0m6.300s
+		32      0m6.293s
+
+Parallel version two ParallelSyncCounter
+Threads 1       0m11.547s
+		2       0m6.822s
+		4       0m6.854s
+		8       0m6.910s
+		16      0m7.064s
+		32      0m6.927s
+
+Parallel version two ParallelDisjoint
+Threads 1       0m12.249s
+		2       0m6.814s
+		4       0m6.806s
+		8       0m6.734s
+		16      0m6.621s
+		32      0m6.620s
+
+
+Sequential run time 
+		    	0m13.479s
+
+
+
+-I received speed up in the case of using multiple threads since my machine contains two cores and each core can run up two processes in parallel.
+
+
+-Details of the machine :
+	Memory seen by the system:
+		MemTotal:        1887808 kB
+
+	Number of cores 	 	2
+		Number of threads 	4 in each core
+
+
+Question one:
+–-----------
+A)
+→ Case one
+
+-Total time = 4*24*60*60=345600 sec.
+--integer instructions time = 20*345600/100 = 69120 sec.
+--I/0 time and other time = 276480 sec.
+
+    → Assuming we have x integer instructions after the compiler optimization we now have ¾x instructions.
+So the time spent in integer instructions will be equal to 3/4*69120 = 51840.
+
+So the total new time will be
+	 51840 +  276480 = 328320. sec.
+
+Time saved = T_old – T_new = 345600 -  328320 = 17280 sec.
+
+
+→ Case two
+	Total Time spent in I/0 operation equals 24192 sec. While each operation takes 6 us so the total number of operations equals 4032*10^6 operations.
+
+	After the HW optimization we will have  4032*10^6 operations each takes 5 us so the total time is 20160 sec.
+
+The new time in this will be.
+(69120- 24192) +  20160 = 65088 sec.
+
+Time saved = 4032 sec.
+
+→ It appears that the first optimization is better than the second one because the time saved is bigger.
+
+
+B)
+→ In the first case the speed up which can be achieved is 1.54.
+sine the amount of the code which can parallelized is equals to 0.4 and the number of processors equals 8.
+1/( (1-0.4) + (0.4/8) ) = 1.54
+
+→ In the next case the amount of the code which can be parallelized equals 0.8 and the number of the processors equals to 4.
+so the speed up equals
+1/( (1-0.8) + (0.8/4) ) =2.5
+
+It appears that the second case achieves higher speed up.
+
+C)
+Let assume that the memory access time which is 30% of the total time(T_old) is Y_old.
+
+After doing the addition of caches.
+Y_new = (75/100*(1/10) + 25/100*(1/2)*(1/4) + 25/100*(1/2) )Y_old =0.23125Y_old.
+
+So to obtain the new time  
+30/100 T_new = Y_new , T_new= (100/30)*0.23125Y_old.
+while 
+30/100 T_old = Y_old.
+→ T_old =100/30 Y_old.
+	So T_new/T_old = 0.23125
+
+	So new time  is about 0.23125 of the value of the old time 
